@@ -146,6 +146,10 @@ int main(int argc, char **argv) {
         fscanf(input, "%d", &v);
         printf("\n\tSearching for value %d in the tree : %s", v, bstree_search(theTree, v) ? "true" : "false");
     }
+
+    printf("\nSWAPPING :");
+    bstree_swap_nodes(&theTree, bstree_left(theTree), bstree_right(theTree));
+    
     printf("\nDone.\n");
 
 #ifdef EXERCICE_5

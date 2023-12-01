@@ -129,19 +129,73 @@ bool bstree_search(const BinarySearchTree *t, int v) {
 
 BinarySearchTree *bstree_successor(const BinarySearchTree *x) {
     assert(!bstree_empty(x));
-    (void)x;
-    return NULL;
+    
+    BinarySearchTree* currentNode = bstree_right(x);
+
+    while (!bstree_empty(currentNode) && !bstree_empty(bstree_left(currentNode))){
+        
+        currentNode = bstree_left(currentNode);
+
+    }
+    
+
+    return currentNode;
 }
 
 BinarySearchTree *bstree_predecessor(const BinarySearchTree *x) {
     assert(!bstree_empty(x));
-    (void)x;
-    return NULL;
+    
+    BinarySearchTree* currentNode = bstree_left(x);
+
+    while (!bstree_empty(currentNode) && !bstree_empty(bstree_right(currentNode))){
+        
+        currentNode = bstree_right(currentNode);
+
+    }
+    
+
+    return currentNode;
 }
 
 void bstree_swap_nodes(ptrBinarySearchTree *tree, ptrBinarySearchTree from, ptrBinarySearchTree to) {
     assert(!bstree_empty(*tree) && !bstree_empty(from) && !bstree_empty(to));
-    (void)tree; (void)from; (void)to;
+    
+    // ptrBinarySearchTree tmp_parent = from->parent;
+    // ptrBinarySearchTree tmp_left = from->left;
+    // ptrBinarySearchTree tmp_right = from->right;
+
+
+    ptrBinarySearchTree tmp = from;
+
+    from->parent = to->parent;
+    from->left = to->left;
+    from->right = to->right;
+
+    if (from->parent->left == from){
+        
+        from->parent->left = from;
+
+    }
+
+    else {
+        from->parent->right = from;
+    }
+    
+    if(!bstree_empty(from->left)){
+        from->left->parent = from;
+
+    }
+
+    if(!bstree_empty(from->right)){
+        from->right->parent = from;
+
+    }
+
+
+    (void)tmp;
+    
+    
+
 }
 
 // t -> the tree to remove from, current -> the node to remove
