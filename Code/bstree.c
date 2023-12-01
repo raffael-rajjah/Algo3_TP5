@@ -160,40 +160,11 @@ BinarySearchTree *bstree_predecessor(const BinarySearchTree *x) {
 void bstree_swap_nodes(ptrBinarySearchTree *tree, ptrBinarySearchTree from, ptrBinarySearchTree to) {
     assert(!bstree_empty(*tree) && !bstree_empty(from) && !bstree_empty(to));
     
-    // ptrBinarySearchTree tmp_parent = from->parent;
-    // ptrBinarySearchTree tmp_left = from->left;
-    // ptrBinarySearchTree tmp_right = from->right;
+    int tmp = from->root;
 
+    from->root = to->root;
+    to->root = tmp;
 
-    ptrBinarySearchTree tmp = from;
-
-    from->parent = to->parent;
-    from->left = to->left;
-    from->right = to->right;
-
-    if (from->parent->left == from){
-        
-        from->parent->left = from;
-
-    }
-
-    else {
-        from->parent->right = from;
-    }
-    
-    if(!bstree_empty(from->left)){
-        from->left->parent = from;
-
-    }
-
-    if(!bstree_empty(from->right)){
-        from->right->parent = from;
-
-    }
-
-
-    (void)tmp;
-    
     
 
 }
@@ -201,11 +172,47 @@ void bstree_swap_nodes(ptrBinarySearchTree *tree, ptrBinarySearchTree from, ptrB
 // t -> the tree to remove from, current -> the node to remove
 void bstree_remove_node(ptrBinarySearchTree *t, ptrBinarySearchTree current) {
     assert(!bstree_empty(*t) && !bstree_empty(current));
-    (void)t; (void)current;
+    (void)t; 
+
+    if(!bstree_empty(bstree_right(current))){
+        
+        bstree_swap_nodes(t, current, bstree_successor(current));
+        free(current->right);
+        current->right = NULL;
+
+    }
+
+    else if (!bstree_empty(bstree_left(current))){
+        
+        bstree_swap_nodes(t, current, bstree_predecessor(current));
+        free(current->left);
+        current->left = NULL;
+    }
+
+
+    free(current);
+    
+    
+
 }
 
 void bstree_remove(ptrBinarySearchTree *t, int v) {
     (void)t; (void)v;
+    BinarySearchTree* currentNode = *t;
+    while (!bstree_empty(currentNode)){
+        if (v < bstree_root(currentNode)){
+
+            currentNode = bstree_left(currentNode);
+        }
+        else if (v > bstree_root(currentNode)){
+            currentNode = bstree_right(currentNode);
+        }
+        else
+            break;
+        
+    }
+
+    bstree_remove_node(t, currentNode);
 }
 
 /*------------------------  BSTreeVisitors  -----------------------------*/

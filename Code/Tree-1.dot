@@ -1,0 +1,6 @@
+digraph BinarySearchTree0 {
+	graph [ranksep=0.5];
+	node [shape = record];
+
+
+}
