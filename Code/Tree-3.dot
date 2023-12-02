@@ -1,4 +1,4 @@
-digraph BinarySearchTree0 {
+digraph BinarySearchTree2 {
 	graph [ranksep=0.5];
 	node [shape = record];
 
@@ -14,13 +14,9 @@ digraph BinarySearchTree0 {
 	n4 [label="{{<parent>}|4|{<left>|<right>}}"];
 	n4:left:c -> n3:parent:c [headclip=false, tailclip=false]
 	n4:right:c -> n6:parent:c [headclip=false, tailclip=false]
-	n5 [label="{{<parent>}|5|{<left>|<right>}}"];
-	lnil5 [style=filled, fillcolor=grey, label="NIL"];
-	n5:left:c -> lnil5:n [headclip=false, tailclip=false]
-	rnil5 [style=filled, fillcolor=grey, label="NIL"];
-	n5:right:c -> rnil5:n [headclip=false, tailclip=false]
 	n6 [label="{{<parent>}|6|{<left>|<right>}}"];
-	n6:left:c -> n5:parent:c [headclip=false, tailclip=false]
+	lnil6 [style=filled, fillcolor=grey, label="NIL"];
+	n6:left:c -> lnil6:n [headclip=false, tailclip=false]
 	n6:right:c -> n7:parent:c [headclip=false, tailclip=false]
 	n7 [label="{{<parent>}|7|{<left>|<right>}}"];
 	lnil7 [style=filled, fillcolor=grey, label="NIL"];
