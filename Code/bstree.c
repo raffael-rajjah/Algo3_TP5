@@ -132,28 +132,91 @@ BinarySearchTree *bstree_successor(const BinarySearchTree *x) {
     
     BinarySearchTree* currentNode = bstree_right(x);
 
+    if (!bstree_empty(bstree_right(x)))
+    {
+        while (!bstree_empty(currentNode) && !bstree_empty(currentNode->left)){
+            
+            currentNode = bstree_left(currentNode);
 
-    while (!bstree_empty(currentNode) && !bstree_empty(currentNode->left)){
+        }
         
-        currentNode = bstree_left(currentNode);
 
+        /* code */
+    }
+
+    else{
+        BinarySearchTree* parent = bstree_parent(x);
+        if(!bstree_empty(bstree_parent(x))){
+            if(parent->left == x) currentNode = parent->left;
+            else currentNode = parent->right;
+        }
+        else{
+            return NULL;
+        }
+        // currentNode = x;
+        while (parent != NULL && currentNode == parent->right)
+        {
+            currentNode = parent;
+            parent = currentNode->parent;
+            // return parent;
+        }
+        
+        
+        currentNode = parent;
     }
     
-
     return currentNode;
 }
 
 BinarySearchTree *bstree_predecessor(const BinarySearchTree *x) {
     assert(!bstree_empty(x));
     
+    // BinarySearchTree* currentNode = bstree_left(x);
+
+    // while (!bstree_empty(currentNode) && !bstree_empty(currentNode->right)){
+        
+    //     currentNode = bstree_right(currentNode);
+
+    // }
+    
+
+    // return currentNode;
+
     BinarySearchTree* currentNode = bstree_left(x);
 
-    while (!bstree_empty(currentNode) && !bstree_empty(currentNode->right)){
-        
-        currentNode = bstree_right(currentNode);
+    if (!bstree_empty(bstree_left(x)))
+    {
+        while (!bstree_empty(currentNode) && !bstree_empty(currentNode->right)){
+            
+            currentNode = bstree_right(currentNode);
 
+        }
+        
+
+        /* code */
     }
-    
+
+    else{
+        BinarySearchTree* parent = bstree_parent(x);
+        if(!bstree_empty(bstree_parent(x))){
+            if(parent->right == x) currentNode = parent->right;
+            else currentNode = parent->left;
+        }
+        else{
+            return NULL;
+        }
+        // currentNode = x;
+        while (parent != NULL && currentNode == parent->left)
+        {
+            currentNode = parent;
+            parent = currentNode->parent;
+            // return parent;
+        }
+        
+        
+        currentNode = parent;
+        
+    }
 
     return currentNode;
 }
@@ -371,7 +434,25 @@ const BinarySearchTree *goto_max(const BinarySearchTree *e) {
 /* constructor */
 BSTreeIterator *bstree_iterator_create(const BinarySearchTree *collection, IteratorDirection direction) {
 	(void)collection; (void)direction;
-	return NULL;
+
+    BSTreeIterator* bst_iterator = malloc(sizeof(BSTreeIterator));
+
+    bst_iterator->collection = collection;
+
+    if (direction == forward){
+        bst_iterator->begin = goto_min;
+        bst_iterator->current = goto_min(bst_iterator->collection);
+        bst_iterator->next = bstree_successor;
+    }
+
+    else{
+        bst_iterator->begin = goto_max;
+        bst_iterator->current = goto_max(bst_iterator->collection);
+        bst_iterator->next = bstree_predecessor;
+    }
+    
+
+	return bst_iterator;
 }
 
 /* destructor */
