@@ -10,7 +10,7 @@
 /* Define this for solving the exercice 4. */
 #define EXERCICE_4
 /* Define this for solving the exercice 5. */
-// #define EXERCICE_5
+#define EXERCICE_5
 /* Define this for solving the exercice 6. */
 //#define EXERCICE_6
 /* Define this for solving the exercice 7. */
@@ -129,10 +129,10 @@ int main(int argc, char **argv) {
 
 #ifdef EXERCICE_3
     /* Exercice 3 : iterative breadfirst and depth-first traversal of the tree to visualize the tree */
-    bstree_swap_nodes(&theTree, bstree_left(theTree), bstree_right(theTree));
+    // bstree_swap_nodes(&theTree, bstree_left(theTree), bstree_right(theTree));
 
     printf("Exporting the tree.\n\t");
-    FILE *output = fopen("FullTrees.dot", "w");
+    FILE *output = fopen("FullTree.dot", "w");
     fprintf(output, "digraph BinarySearchTree {\n\tgraph [ranksep=0.5];\n\tnode [shape = record];\n\n");
     bstree_iterative_breadth_prefix(theTree, node_to_dot, output);
     fprintf(output, "\n}\n");
