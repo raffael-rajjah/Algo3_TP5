@@ -341,13 +341,31 @@ struct _BSTreeIterator {
 /* minimum element of the collection */
 const BinarySearchTree *goto_min(const BinarySearchTree *e) {
 	(void)e;
-	return NULL;
+    const BinarySearchTree* currentNode = e;
+
+    while (!bstree_empty (bstree_predecessor(currentNode))){
+        
+        currentNode = bstree_predecessor(currentNode);
+
+    }
+    
+
+	return currentNode;
 }
 
 /* maximum element of the collection */
 const BinarySearchTree *goto_max(const BinarySearchTree *e) {
 	(void)e;
-	return NULL;
+	const BinarySearchTree* currentNode = e;
+
+    while (!bstree_empty (bstree_successor(currentNode))){
+        
+        currentNode = bstree_successor(currentNode);
+
+    }
+    
+
+	return currentNode;
 }
 
 /* constructor */
